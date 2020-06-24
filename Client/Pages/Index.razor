@@ -1,0 +1,13 @@
+﻿@page "/"
+
+<h1>Headline</h1>
+<p>Hello @name</p>
+<p>Let's add 2 + 2 = @(2+2)</p>
+
+<button @onclick="@(()=> Console.WriteLine("Button was clicked"))">Click me</button>
+
+@code{
+    string name = "Peter";
+}
+
+

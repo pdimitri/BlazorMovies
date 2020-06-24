@@ -1,13 +1,27 @@
 ﻿@page "/"
 
+
 <h1>Headline</h1>
-<p>Hello @name</p>
+<p>Hello @StringUtilities.CustomToUpper(name)</p>
 <p>Let's add 2 + 2 = @(2+2)</p>
 
 <button @onclick="@(()=> Console.WriteLine("Button was clicked"))">Click me</button>
 
+<div>
+    <h3>Movie</h3>
+    <p>Title: <b>@spiderman.Title</b></p>
+    <p>Release Date: <b>@spiderman.ReleaseDate.ToString("dd MMM yyyy")</b></p>
+</div>
+
 @code{
-    string name = "Peter";
+        string name = "Peter";
+
+        Movie spiderman = new Movie()
+        {
+            Title = "Spiderman returns",
+            ReleaseDate = new DateTime(2019, 7, 5)
+    };
+
 }
 
 

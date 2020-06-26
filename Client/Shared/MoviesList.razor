@@ -9,24 +9,30 @@
     </ElementTemplate>
 </GenericList>
 
+<Confirmation @ref="confirmation" >
+    <div>Do you wish to delete the Movie?</div>
+</Confirmation>
+
 @code {
-    [Parameter] public List<Movie> Movies { get; set; }
+           Confirmation confirmation;
+           [Parameter] public List<Movie> Movies { get; set; }
 
-    bool displayButtons = false;
+           bool displayButtons = false;
 
-    private async Task DeleteMovie(Movie movie)
-    {
+           private async Task DeleteMovie(Movie movie)
+           {
 
-        await js.MyFunction("Message from DeleteMovie");
-        @*var confirmed = await js.InvokeAsync<bool>("confirm", $"Are you sure to delete {movie.Title}?");*@
+               confirmation.Show();
+                    <!--await js.MyFunction("Message from DeleteMovie");-->
+                @*var confirmed = await js.InvokeAsync<bool>("confirm", $"Are you sure to delete {movie.Title}?");*@
 
-        //This works because of the custom helper class BlazorMovies.Client.Helpers.IJSRuntimeExtensionMethods. The whole "Helpers" package is included in the _Imports.razor file 
-        var confirmed = await js.Confirm($"Are you sure to delete {movie.Title}?");
+                <!--//This works because of the custom helper class BlazorMovies.Client.Helpers.IJSRuntimeExtensionMethods. The whole "Helpers" package is included in the _Imports.razor file 
+                var confirmed = await js.Confirm($"Are you sure to delete {movie.Title}?");
 
-        if (confirmed)
-        {
-            Movies.Remove(movie);
-        }
+                if (confirmed)
+                {
+                    Movies.Remove(movie);
+                }-->
 
-    }
+                }
 }

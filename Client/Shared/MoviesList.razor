@@ -9,30 +9,40 @@
     </ElementTemplate>
 </GenericList>
 
-<Confirmation @ref="confirmation" >
-    <div>Do you wish to delete the Movie?</div>
+<Confirmation @ref="confirmation" onCancel="onCancel" onConfirm="onConfirm">
+    <div>Do you wish to delete @movieToBeDeleted.Title?</div>
 </Confirmation>
 
+
+
 @code {
-           Confirmation confirmation;
-           [Parameter] public List<Movie> Movies { get; set; }
+    Confirmation confirmation;
+    [Parameter] public List<Movie> Movies { get; set; }
+    Movie movieToBeDeleted;
+    bool displayButtons = false;
 
-           bool displayButtons = false;
+    private async Task DeleteMovie(Movie movie)
+    {
+        movieToBeDeleted = movie;
+        confirmation.Show();
+        //await js.MyFunction("Message from DeleteMovie");
+        //var confirmed = await js.InvokeAsync<bool>("confirm", $"Are you sure to delete {movie.Title}?");
 
-           private async Task DeleteMovie(Movie movie)
-           {
+        //This works because of the custom helper class BlazorMovies.Client.Helpers.IJSRuntimeExtensionMethods. The whole "Helpers" package is included in the _Imports.razor file 
+        //var confirmed = await js.Confirm($"Are you sure to delete {movie.Title}?");
 
-               confirmation.Show();
-                    <!--await js.MyFunction("Message from DeleteMovie");-->
-                @*var confirmed = await js.InvokeAsync<bool>("confirm", $"Are you sure to delete {movie.Title}?");*@
+    }
 
-                <!--//This works because of the custom helper class BlazorMovies.Client.Helpers.IJSRuntimeExtensionMethods. The whole "Helpers" package is included in the _Imports.razor file 
-                var confirmed = await js.Confirm($"Are you sure to delete {movie.Title}?");
+    void onConfirm()
+    {
+        Movies.Remove(movieToBeDeleted);
+        confirmation.Hide();
+        movieToBeDeleted = null;
+    }
 
-                if (confirmed)
-                {
-                    Movies.Remove(movie);
-                }-->
-
-                }
+    void onCancel()
+    {
+        confirmation.Hide();
+        movieToBeDeleted = null;
+    }
 }

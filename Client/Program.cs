@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using BlazorMovies.Client.Helpers;
 
 namespace BlazorMovies.Client
 {
@@ -18,8 +19,16 @@ namespace BlazorMovies.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            ConfigureServices(builder.Services); //manually added to configure Services for DI
             await builder.Build().RunAsync();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddOptions(); //Needed for Authorization System
+            services.AddSingleton<SingletonService>();
+            services.AddTransient<TransientService>();
+            services.AddTransient<IRepository, RepositoryInMemory>();
         }
     }
 }

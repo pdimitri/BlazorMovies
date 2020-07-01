@@ -11,7 +11,7 @@
                     <h5 class="modal-title">
                         @Title
                     </h5>
-                    <button @onClick="onCancel" type="button" class="close">
+                    <button @onclick="onCancel" type="button" class="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
 
@@ -20,8 +20,8 @@
                     @ChildContent
                 </div>
                 <div class="modal-footer">
-                    <button @onClick="onCancel" type="button" class="btn btn-secondary">Cancel</button>
-                    <button @onClick="onConfirm" type="button" class="btn btn-primary">OK</button>
+                    <button @onclick="onCancel" type="button" class="btn btn-secondary">Cancel</button>
+                    <button @onclick="onConfirm" type="button" class="btn btn-primary">OK</button>
                 </div>
             </div>
         </div>

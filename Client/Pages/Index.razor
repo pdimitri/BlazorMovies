@@ -6,18 +6,15 @@
         <MoviesList Movies="movies" />
     </div>
 
-<div>
-    <h2>Create a new Movie</h2>
-    <DummyTextbox placeholder="whatever" />
-</div>
 
 @code{
     private List<Movie> movies;
-  
+
     protected override void OnInitialized()
     {
         movies = repository.GetMovies();
     }
+
 
 }
 
